@@ -1,0 +1,126 @@
+﻿@model ProjetoEntrega15_02.Models.Anuncios
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<div class="container row emp-profile mx-auto">
+    <div>
+        <h4>@Html.DisplayFor(model => model.Titulo)</h4>
+        <hr />
+        <article class="d-flex justify-content-center">
+            <img src="@Html.DisplayFor(model => model.ImagemUrl)" class="img-fluid h-50 align-items-center" alt="Imagem do serviço">
+        </article>
+        <hr />
+
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Descricao)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Descricao)
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Valor)
+            </dt>
+            <dd class="col-sm-10">
+                R$ @Html.DisplayFor(model => model.Valor)
+            </dd>
+
+            <dt class="col-sm-2">
+                Localização
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Cidade) - @Html.DisplayFor(model => model.Estado)
+            </dd>
+
+            <dt class="col-sm-2">
+                Publicado por
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UserId)
+            </dd>
+        </dl>
+    </div>
+
+
+    <div class="container-fluid d-flex justify-content-around">
+
+        @{
+            if (Model.UserId == User.Identity.Name)
+            {
+
+                <a class="btn w-25 btn-primary align-self-center" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+            }
+        }
+        <a class="btn w-25 btn-primary align-self-center" asp-action="Index">Voltar</a>
+        @*<a class="btn w-25 btn-primary" asp-action="Edit" asp-route-id="@Model.AnuncioId">Editar</a>*@
+
+        <button type="button" class="btn w-25 btn-primary align-self-center" data-toggle="modal" data-target="#exampleModalCenter"> Converse com a prestadora </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" hidden>
+                    </div>
+                    <div class="modal-body" hidden>
+                    </div>
+
+                    <div class="chat_window">
+                        <div class="top_menu">
+                            <div class="buttons">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="title">Chat</div>
+
+
+                        </div>
+                        <ul class="messages"></ul>
+                        <div class="bottom_wrapper clearfix">
+                            <div class="message_input_wrapper">
+                                <input class="message_input" placeholder="Escreva uma mensagem aqui" />
+                            </div>
+                            <div class="send_message">
+                                <div class="icon"></div>
+                                <div class="text">Enviar</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message_template">
+                        @*
+                            <div class="avatar">
+                            </div>
+                        *@
+                        <li class="message">
+                            <div class="text_wrapper">
+                                <div class="text"></div>
+                            </div>
+                        </li>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@{
+
+    if (Model.UserId == User.Identity.Name)
+    {
+        <div class="d-flex justify-content-center">
+            <a class="btn w-25 btn-danger" asp-action="Delete"  asp-route-id="@Model.Id">Deletar</a>
+        </div>
+    }
+}
+
+
+
+<br />
